@@ -42,12 +42,13 @@ set path+=**
 
 " --- Keymaps ---
 let mapleader=" "
+let g:netrw_winsize = 30 " persen dari layar
 
 " jk to escape insert mode
 inoremap jk <Esc>
 
 " File explorer on the right
-nnoremap <leader>e :Vex<CR>
+nnoremap <leader>e :Vexplore!<CR>
 
 " Quit
 nnoremap <leader>q :q<CR>
