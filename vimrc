@@ -95,3 +95,25 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4   " open files in current window
 let g:netrw_altv = 1
 let g:netrw_keepdir = 0
+
+" --- Custom netrw mappings ---
+augroup netrw_mapping
+  autocmd!
+  " r = rename
+  autocmd FileType netrw nnoremap <buffer> r R
+  " d = delete
+  autocmd FileType netrw nnoremap <buffer> d D
+  " % = new file + open in main buffer
+  autocmd FileType netrw nnoremap <buffer> % :call NetrwNewFile()<CR>
+augroup END
+
+" --- Custom netrw functions ---
+function! NetrwNewFile()
+  let l:filename = input("New file: ")
+  if l:filename != ""
+    " buka file baru, otomatis nutup explorer
+    execute 'enew'
+    execute 'edit' l:filename
+    write
+  endif
+endfunction
