@@ -42,12 +42,12 @@ set path+=**
 
 " --- Keymaps ---
 let mapleader=" "
-let g:netrw_winsize = 30 " persen dari layar
+let g:netrw_winsize = 30 " sidebar width (percent of screen)
 
 " jk to escape insert mode
 inoremap jk <Esc>
 
-" File explorer on the right
+" File explorer (always right side)
 nnoremap <leader>e :Vexplore!<CR>
 
 " Quit
@@ -66,11 +66,17 @@ nnoremap <leader>s gg=G``
 set clipboard=unnamedplus   " use system clipboard if available
 set mouse=a                 " enable mouse support
 
-" --- Custom Netrw mappings ---
+" --- Netrw like Neo-tree ---
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_keepdir = 0
+
 augroup netrw_mapping
   autocmd!
-  " apply only in netrw buffer
-  autocmd FileType netrw nnoremap <buffer> a %         " a = add new file
-  autocmd FileType netrw nnoremap <buffer> r R         " r = rename
-  autocmd FileType netrw nnoremap <buffer> d D         " d = delete
+  autocmd FileType netrw nnoremap <buffer> a %     " a = add new file
+  autocmd FileType netrw nnoremap <buffer> A d     " A = add new directory
+  autocmd FileType netrw nnoremap <buffer> r R     " r = rename
+  autocmd FileType netrw nnoremap <buffer> d D     " d = delete
 augroup END
