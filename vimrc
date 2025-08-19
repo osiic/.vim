@@ -11,6 +11,7 @@ set relativenumber
 set hidden
 set ruler
 set showcmd
+set showtabline=2        " always show tabline (to see buffers)
 
 " --- Colorscheme (Cappuccino-ish) ---
 colorscheme desert
@@ -68,40 +69,29 @@ nnoremap <leader>ff :find
 " Prettier-like reindent whole file
 nnoremap <leader>s gg=G``
 
+" --- Window navigation ---
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" --- Window resizing ---
+nnoremap <C-S-h> :vertical resize -2<CR>
+nnoremap <C-S-l> :vertical resize +2<CR>
+nnoremap <C-S-j> :resize -2<CR>
+nnoremap <C-S-k> :resize +2<CR>
+
+" --- Buffer navigation ---
+nnoremap <A-J> :bprevious<CR>
+nnoremap <A-K> :bnext<CR>
+
 " --- Misc QoL ---
 set clipboard=unnamedplus   " use system clipboard if available
 set mouse=a                 " enable mouse support
 
-" --- Netrw like Neo-tree ---
+" --- Netrw settings ---
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
+let g:netrw_browse_split = 4   " open files in current window
 let g:netrw_altv = 1
 let g:netrw_keepdir = 0
-
-augroup netrw_mapping
-  autocmd!
-  autocmd FileType netrw nnoremap <buffer> r R     " r = rename
-  autocmd FileType netrw nnoremap <buffer> d D     " d = delete
-  " a = add new file + open it
-  autocmd FileType netrw nnoremap <buffer> a :call NetrwNewFile()<CR>
-  " A = add new folder
-  autocmd FileType netrw nnoremap <buffer> A :call NetrwNewDir()<CR>
-augroup END
-
-" --- Custom netrw functions ---
-function! NetrwNewFile()
-  let l:filename = input("New file: ")
-  if l:filename != ""
-    execute 'edit' l:filename
-    write
-  endif
-endfunction
-
-function! NetrwNewDir()
-  let l:dirname = input("New directory: ")
-  if l:dirname != ""
-    call mkdir(l:dirname, "p")
-    edit .
-  endif
-endfunction
