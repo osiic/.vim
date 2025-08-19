@@ -65,3 +65,12 @@ nnoremap <leader>s gg=G``
 " --- Misc QoL ---
 set clipboard=unnamedplus   " use system clipboard if available
 set mouse=a                 " enable mouse support
+
+" --- Custom Netrw mappings ---
+augroup netrw_mapping
+  autocmd!
+  " apply only in netrw buffer
+  autocmd FileType netrw nnoremap <buffer> a %         " a = add new file
+  autocmd FileType netrw nnoremap <buffer> r R         " r = rename
+  autocmd FileType netrw nnoremap <buffer> d D         " d = delete
+augroup END
