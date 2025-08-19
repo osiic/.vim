@@ -44,8 +44,14 @@ set path+=**
 let mapleader=" "
 let g:netrw_winsize = 30 " sidebar width (percent of screen)
 
-" jk to escape insert mode
+" jk / kj to escape insert mode
 inoremap jk <Esc>
+inoremap kj <Esc>
+
+" Save file with Ctrl-s
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
+vnoremap <C-s> <Esc>:w<CR>gv
 
 " File explorer (always right side)
 nnoremap <leader>e :Vexplore!<CR>
@@ -75,8 +81,27 @@ let g:netrw_keepdir = 0
 
 augroup netrw_mapping
   autocmd!
-  autocmd FileType netrw nnoremap <buffer> a %     " a = add new file
-  autocmd FileType netrw nnoremap <buffer> A d     " A = add new directory
   autocmd FileType netrw nnoremap <buffer> r R     " r = rename
   autocmd FileType netrw nnoremap <buffer> d D     " d = delete
+  " a = add new file + open it
+  autocmd FileType netrw nnoremap <buffer> a :call NetrwNewFile()<CR>
+  " A = add new folder
+  autocmd FileType netrw nnoremap <buffer> A :call NetrwNewDir()<CR>
 augroup END
+
+" --- Custom netrw functions ---
+function! NetrwNewFile()
+  let l:filename = input("New file: ")
+  if l:filename != ""
+    execute 'edit' l:filename
+    write
+  endif
+endfunction
+
+function! NetrwNewDir()
+  let l:dirname = input("New directory: ")
+  if l:dirname != ""
+    call mkdir(l:dirname, "p")
+    edit .
+  endif
+endfunction
